@@ -38,15 +38,16 @@ function get_badges($userid,$group) {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <?php
 
-if (!isset($_GET['email']))
+if (isset($_POST['lis_person_contact_email_primary']))
 {
-
-die("You must provide an email parameter, please.");
-
+$email=$_POST['lis_person_contact_email_primary']);
+} else {
+die("Please configure the LTI app to allow user email.");
 }
-echo '<center><h4>Badges for '.$_GET['email'].':</h4><table border=0 cellpadding=10 width=400 >';
 
-$userid = badgewidgethack_convert_email_to_openbadges_id($_GET['email']);
+echo '<center><h4>Badges for '.$email.':</h4><table border=0 cellpadding=10 width=400 >';
+
+$userid = badgewidgethack_convert_email_to_openbadges_id($email);
 $data = badgewidget_return_groups_given_badge_id($userid);
 
 if ($limit = count($data[groups])) {
